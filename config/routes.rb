@@ -10,6 +10,13 @@ Rails.application.routes.draw do
     post   :remove_item
   end
 
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
+  get '/signup' => 'users#new'
+  post '/users' => 'users#create'
+
   resources :orders, only: [:create, :show]
 
   namespace :admin do
@@ -17,6 +24,8 @@ Rails.application.routes.draw do
     resources :products, except: [:edit, :update, :show]
     resources :categories, only: [:index, :new, :create]
   end
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
