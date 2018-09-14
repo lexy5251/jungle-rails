@@ -1,6 +1,10 @@
 class CartsController < ApplicationController
 
   def show
+    if cart == {}
+      render "carts/cart_empty", notice: 'Your cart is empty.'
+
+    end
   end
 
   def add_item
@@ -15,6 +19,11 @@ class CartsController < ApplicationController
     modify_cart_delta(product_id, -1)
 
     redirect_to :back
+  end
+
+   def empty_cart!
+    # empty hash means no products in cart :)
+    update_cart({})
   end
 
   private
