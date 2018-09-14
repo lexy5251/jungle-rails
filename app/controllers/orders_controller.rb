@@ -6,13 +6,17 @@ class OrdersController < ApplicationController
 
   def create
     charge = perform_stripe_charge
-    order  = create_order(charge)
+    @order  = create_order(charge)
 
-    if order.valid?
+    if @order.save
+      UserMailer.order_receipt_email(@order).deliver_now
+    end
+
+    if @order.valid?
       empty_cart!
-      redirect_to order, notice: 'Your Order has been placed.'
+      redirect_to @order, notice: 'Your Order has been placed.'
     else
-      redirect_to cart_path, flash: { error: order.errors.full_messages.first }
+      redirect_to cart_path, flash: { error: @order.errors.full_messages.first }
     end
 
   rescue Stripe::CardError => e
@@ -41,6 +45,7 @@ class OrdersController < ApplicationController
       total_cents: cart_subtotal_cents,
       stripe_charge_id: stripe_charge.id, # returned by stripe
     )
+
 
     enhanced_cart.each do |entry|
       product = entry[:product]
