@@ -21,6 +21,15 @@ end
 
 # Let's do this ...
 
+## USERS
+
+puts "Creating test users"
+user1 = User.create(first_name: 'Lexy',
+                    last_name: 'Yu',
+                    email: 'lexy@gmail.com',
+                    password: 'lexy')
+
+
 ## CATEGORIES
 
 puts "Finding or Creating Categories ..."
@@ -28,6 +37,9 @@ puts "Finding or Creating Categories ..."
 cat1 = Category.find_or_create_by! name: 'Apparel'
 cat2 = Category.find_or_create_by! name: 'Electronics'
 cat3 = Category.find_or_create_by! name: 'Furniture'
+
+
+
 
 ## PRODUCTS
 
@@ -130,6 +142,17 @@ cat3.products.create!({
   image: open_asset('furniture3.jpg'),
   quantity: 0,
   price: 2_483.75
+})
+
+## REVIEWS
+
+puts "Finding or Creating Reviews ..."
+product1 = Product.find_by(id: 1)
+
+product1.reviews.create!({
+   description: 'this is nice',
+   rating: 4,
+   user_id: 1
 })
 
 
