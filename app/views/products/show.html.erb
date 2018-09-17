@@ -28,6 +28,8 @@
                 </dl>
 
                 <%= form_for [@product, Review.new] do |f| %>
+                <hr>
+                <h3>Review Form:</h3>
                 <div class="field">
                   <%= f.label :description %>
                 <br>
@@ -41,6 +43,7 @@
                   <%= f.submit "Create" %>
                 </div>
                   <% end %>
+                  <hr>
                 <div>
                   <%  @product.reviews.reverse.each do |review| %>
                     <%= render 'review', review: review %>

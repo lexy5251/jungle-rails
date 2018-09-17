@@ -15,6 +15,20 @@ li.login-logout {
 display: inline-flex;
 }
 
+form#new_review {
+  margin-left: 10%;
+}
+
+.field {
+  margin: 5% 0;
+}
+
+.dl-vertical dd {
+  width: 30%;
+  border: 1px solid grey;
+  margin: 2% 0;
+  padding: 5px;
+}
 
 // Bootstrap adjustments
 form.button_to {

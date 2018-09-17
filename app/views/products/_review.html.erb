@@ -1,3 +1,4 @@
+
 <div class="dl-vertical">
    <h2>Reviews</h2>
    <br>
@@ -10,9 +11,9 @@
   <dt>Created_at:</dt>
   <dd><%= review.created_at %></dd>
   <% if current_user && current_user.id === review.user.id %>
-  <%= link_to "Delete", [review.product, review],
+  <button><%= link_to "Delete", [review.product, review],
                                   method: :delete,
-                                  data: { confirm: "Are you sure?" } %>
+                                  data: { confirm: "Are you sure?" } %></button>
   <% end %>
 
 </div>

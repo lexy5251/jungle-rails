@@ -1,14 +1,7 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
-  before_action :configure_permitted_parameters, if: :devise_controller?
- protected
+  # before_filter: authentication
+  #before_action :set_review, only: [:show, :edit, :update, :destroy]
 
-def configure_permitted_parameters
-  devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-end
-
-  # POST /reviews
-  # POST /reviews.json
   def create
     @product = Product.find(params[:product_id])
     @review = @product.reviews.create(review_params)
