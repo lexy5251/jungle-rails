@@ -7,16 +7,12 @@ RSpec.describe User, type: :model do
 
     end
 
-    # it "should be valid when user is saved" do
-    #   expect(@user.save).to eq(true)
-    # end
-
     it "should be invalid because the password does not match" do
       @user.password_confirmation = "123"
       expect(@user).to_not be_valid
     end
 
-    it "should be invalid because the email is not case sensitive" do
+    it "should be invalid because the email should be case sensitive" do
       user = User.create(first_name: "Xi", last_name: "Yu", email: "xyu20@ART.edu", password: "abc", password_confirmation: "abc")
       expect(user).to_not be_valid
     end
@@ -48,7 +44,7 @@ RSpec.describe User, type: :model do
 
   describe '.authenticate_with_credentials' do
     before do
-      @user = User.create(first_name: "Xi", last_name: "Yu", email: "XYU20@art.edu", password: "abcd", password_confirmation: "abcd")
+      @user = User.create(first_name: "Xi", last_name: "Yu", email: "xyu20@art.edu", password: "abcd", password_confirmation: "abcd")
     end
 
     it 'should give me an user' do
@@ -58,7 +54,13 @@ RSpec.describe User, type: :model do
     end
 
     it 'should not be valid since the email has a space' do
-    @test_user = User.authenticate_with_credentials(" XYU20@art.edu", "abcd")
+      @test_user = User.authenticate_with_credentials(" XYU20@art.edu ", "abcd")
+
+      expect(@test_user).to eq(@user)
+    end
+
+    it 'should not be allowed since email is wrong case' do
+      @test_user = User.authenticate_with_credentials("xyu20@ART.EDU", "abcd")
 
       expect(@test_user).to eq(@user)
     end
