@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'capybara/rails'
 
 RSpec.describe User, type: :model do
   describe "Validations" do
